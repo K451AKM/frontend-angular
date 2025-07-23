@@ -1,0 +1,387 @@
+/* Variables CSS - Más elegantes */
+:root {
+  --primary-gold: #d4af37;
+  --gold-light: #f4e4a6;
+  --white: #ffffff;
+  --black: #1a1a1a;
+  --gray-50: #fafafa;
+  --gray-100: #f5f5f5;
+  --gray-200: #e5e5e5;
+  --gray-400: #a3a3a3;
+  --gray-600: #525252;
+  --gray-700: #404040;
+  --shadow-subtle: 0 1px 3px rgba(0, 0, 0, 0.05);
+  --shadow-soft: 0 2px 8px rgba(0, 0, 0, 0.08);
+  --transition: all 0.2s ease;
+}
+
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* 🔥 HEADER ELEGANTE CON MÁS ALTURA */
+.header {
+  background: var(--white);
+  border-bottom: 1px solid var(--gray-200);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  transition: var(--transition);
+  backdrop-filter: blur(8px);
+  /* 🔥 UN POCO MÁS ANCHO: 72px */
+  height: 72px;
+}
+
+.header-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  /* 🔥 MÁS ALTURA: 72px */
+  height: 72px;
+  padding: 0;
+}
+
+/* 🔥 LOGO MÁS SUTIL Y ELEGANTE */
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.logo:hover {
+  opacity: 0.8;
+}
+
+.logo h1 {
+  /* 🔥 LETRAS MÁS DELGADAS */
+  font-size: 26px;
+  font-weight: 300;
+  color: var(--black);
+  letter-spacing: 2px;
+  margin: 0;
+}
+
+.logo-wings {
+  display: flex;
+  gap: 2px;
+}
+
+.wing-left,
+.wing-right {
+  font-size: 13px;
+  opacity: 0.6;
+  animation: float 4s ease-in-out infinite;
+}
+
+.wing-right {
+  animation-delay: 2s;
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-2px);
+  }
+}
+
+/* 🔥 NAVEGACIÓN MINIMALISTA */
+.nav-menu {
+  display: flex;
+  gap: 40px;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.nav-link {
+  text-decoration: none;
+  color: var(--gray-700);
+  /* 🔥 LETRAS MÁS DELGADAS */
+  font-weight: 400;
+  font-size: 14px;
+  letter-spacing: 1px;
+  /* 🔥 UN POCO MÁS DE PADDING VERTICAL */
+  padding: 10px 16px;
+  border-radius: 4px;
+  transition: var(--transition);
+  position: relative;
+  text-transform: uppercase;
+}
+
+.nav-link:hover {
+  color: var(--black);
+}
+
+/* 🔥 INDICADOR SUTIL */
+.nav-link.active {
+  color: var(--black);
+  font-weight: 500;
+}
+
+.nav-link.active::after {
+  content: "";
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 16px;
+  height: 1px;
+  background: var(--primary-gold);
+}
+
+/* 🔥 USER ACTIONS MÁS COMPACTAS */
+.user-actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.search-btn,
+.cart-btn,
+.login-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  /* 🔥 UN POCO MÁS DE PADDING */
+  padding: 10px 14px;
+  border: none;
+  background: transparent;
+  color: var(--gray-600);
+  cursor: pointer;
+  border-radius: 4px;
+  transition: var(--transition);
+  font-weight: 400;
+  font-size: 13px;
+}
+
+.search-btn:hover,
+.cart-btn:hover {
+  color: var(--black);
+  background: var(--gray-50);
+}
+
+.login-btn {
+  background: var(--black);
+  color: var(--white);
+  /* 🔥 MÁS DELGADO */
+  font-weight: 400;
+  font-size: 13px;
+  letter-spacing: 0.5px;
+}
+
+.login-btn:hover {
+  background: var(--gray-700);
+}
+
+.cart-btn {
+  position: relative;
+}
+
+.cart-count {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  background: var(--primary-gold);
+  color: var(--white);
+  font-size: 10px;
+  font-weight: 500;
+  padding: 2px 6px;
+  border-radius: 10px;
+  min-width: 16px;
+  text-align: center;
+  line-height: 1.2;
+}
+
+/* 🔥 USER DROPDOWN MÁS ELEGANTE */
+.user-dropdown {
+  position: relative;
+}
+
+.user-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  border: none;
+  background: var(--gray-50);
+  border-radius: 20px;
+  cursor: pointer;
+  transition: var(--transition);
+  border: 1px solid var(--gray-200);
+}
+
+.user-btn:hover {
+  background: var(--gray-100);
+  border-color: var(--gray-300);
+}
+
+.user-avatar {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.user-name {
+  font-weight: 400;
+  font-size: 13px;
+  color: var(--gray-700);
+}
+
+.dropdown-icon {
+  transition: var(--transition);
+  width: 12px;
+  height: 12px;
+}
+
+.user-dropdown.open .dropdown-icon {
+  transform: rotate(180deg);
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  background: var(--white);
+  border-radius: 8px;
+  box-shadow: var(--shadow-soft);
+  min-width: 220px;
+  padding: 8px 0;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-8px);
+  transition: var(--transition);
+  border: 1px solid var(--gray-200);
+}
+
+.user-dropdown.open .dropdown-menu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.user-info {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--gray-100);
+}
+
+.user-full-name {
+  font-weight: 500;
+  color: var(--black);
+  margin-bottom: 2px;
+  font-size: 13px;
+}
+
+.user-email {
+  font-size: 11px;
+  color: var(--gray-400);
+}
+
+.menu-divider {
+  height: 1px;
+  background: var(--gray-100);
+  margin: 4px 0;
+}
+
+.menu-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 16px;
+  color: var(--gray-600);
+  text-decoration: none;
+  transition: var(--transition);
+  border: none;
+  background: none;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 400;
+}
+
+.menu-item:hover {
+  background: var(--gray-50);
+  color: var(--black);
+}
+
+.menu-item svg {
+  width: 14px;
+  height: 14px;
+}
+
+.logout-btn {
+  color: #dc2626;
+}
+
+.logout-btn:hover {
+  background: #fef2f2;
+  color: #dc2626;
+}
+
+/* 🔥 RESPONSIVE MÁS ELEGANTE */
+@media (max-width: 768px) {
+  .header {
+    /* 🔥 MÓVIL TAMBIÉN UN POCO MÁS ALTO: 60px */
+    height: 60px;
+  }
+
+  .header-content {
+    height: 60px;
+  }
+
+  .container {
+    padding: 0 16px;
+  }
+
+  .logo h1 {
+    font-size: 22px;
+    letter-spacing: 1px;
+  }
+
+  .nav-menu {
+    display: none;
+  }
+
+  .user-actions {
+    gap: 12px;
+  }
+
+  .search-btn,
+  .cart-btn,
+  .login-btn {
+    padding: 8px 10px;
+  }
+
+  .login-btn span {
+    display: none;
+  }
+
+  .dropdown-menu {
+    right: -16px;
+    min-width: 200px;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 0 12px;
+  }
+
+  .logo h1 {
+    font-size: 20px;
+  }
+
+  .user-actions {
+    gap: 8px;
+  }
+}

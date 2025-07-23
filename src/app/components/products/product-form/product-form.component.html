@@ -1,0 +1,253 @@
+<div class="container mx-auto px-4 py-8 max-w-4xl">
+  <!-- Header -->
+  <div class="mb-8">
+    <div class="flex items-center mb-4">
+      <button 
+        (click)="router.navigate(['/products'])"
+        class="mr-4 text-gray-600 hover:text-gray-900"
+      >
+        ← Volver
+      </button>
+      <h1 class="text-3xl font-bold text-gray-900">
+        {{ isEditMode ? '✏️ Editar Producto' : '➕ Nuevo Producto' }}
+      </h1>
+    </div>
+    <p class="text-gray-600">
+      {{ isEditMode ? 'Actualiza la información del producto' : 'Completa los datos para crear un nuevo producto' }}
+    </p>
+  </div>
+
+  <!-- Loading -->
+  <app-loading *ngIf="loading"></app-loading>
+
+  <!-- Form -->
+  <div *ngIf="!loading" class="bg-white rounded-lg shadow-md">
+    <form [formGroup]="productForm" (ngSubmit)="onSubmit()" class="p-8">
+      
+      <!-- Basic Info -->
+      <div class="mb-8">
+        <h2 class="text-xl font-semibold text-gray-900 mb-4">📋 Información Básica</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          
+          <!-- Code -->
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">
+              🏷️ Código *
+            </label>
+            <input
+              type="text"
+              formControlName="code"
+              placeholder="PROD001"
+              class="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              [class.border-red-500]="isFieldInvalid('code')"
+            >
+            <p *ngIf="isFieldInvalid('code')" class="text-red-500 text-sm mt-1">
+              {{ getFieldError('code') }}
+            </p>
+          </div>
+
+          <!-- Name -->
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">
+              📦 Nombre *
+            </label>
+            <input
+              type="text"
+              formControlName="name"
+              placeholder="Nombre del producto"
+              class="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              [class.border-red-500]="isFieldInvalid('name')"
+            >
+            <p *ngIf="isFieldInvalid('name')" class="text-red-500 text-sm mt-1">
+              {{ getFieldError('name') }}
+            </p>
+          </div>
+
+          <!-- Category -->
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">
+              🏷️ Categoría
+            </label>
+            <input
+              type="text"
+              formControlName="category"
+              placeholder="Electrónicos, Ropa, etc."
+              class="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            >
+          </div>
+
+          <!-- Type -->
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">
+              🔖 Tipo
+            </label>
+            <input
+              type="text"
+              formControlName="type"
+              placeholder="Tipo de producto"
+              class="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            >
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Pricing -->
+      <div class="mb-8">
+        <h2 class="text-xl font-semibold text-gray-900 mb-4">💰 Precios</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          
+          <!-- Price -->
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">
+              💵 Precio *
+            </label>
+            <input
+              type="number"
+              step="0.01"
+              formControlName="price"
+              placeholder="0.00"
+              class="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              [class.border-red-500]="isFieldInvalid('price')"
+            >
+            <p *ngIf="isFieldInvalid('price')" class="text-red-500 text-sm mt-1">
+              {{ getFieldError('price') }}
+            </p>
+          </div>
+
+          <!-- Purchase Price -->
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">
+              🛒 Precio Compra
+            </label>
+            <input
+              type="number"
+              step="0.01"
+              formControlName="purchasePrice"
+              placeholder="0.00"
+              class="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            >
+          </div>
+
+          <!-- Public Price -->
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">
+              🏪 Precio Público
+            </label>
+            <input
+              type="number"
+              step="0.01"
+              formControlName="publicPrice"
+              placeholder="0.00"
+              class="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            >
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Inventory -->
+      <div class="mb-8">
+        <h2 class="text-xl font-semibold text-gray-900 mb-4">📊 Inventario</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          
+          <!-- Quantity -->
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">
+              📦 Cantidad
+            </label>
+            <input
+              type="number"
+              formControlName="quantity"
+              placeholder="0"
+              class="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            >
+          </div>
+
+          <!-- Supplier -->
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">
+              🏭 Proveedor
+            </label>
+            <input
+              type="text"
+              formControlName="supplier"
+              placeholder="Nombre del proveedor"
+              class="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            >
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Sizes -->
+      <div class="mb-8">
+        <h2 class="text-xl font-semibold text-gray-900 mb-4">📏 Tallas y Medidas</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          
+          <!-- Sizes -->
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">
+              👕 Tallas
+            </label>
+            <input
+              type="text"
+              formControlName="sizes"
+              placeholder="S, M, L, XL"
+              class="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            >
+            <p class="text-gray-500 text-sm mt-1">Separar con comas</p>
+          </div>
+
+          <!-- Size2 -->
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">
+              📐 Medidas Numéricas
+            </label>
+            <input
+              type="text"
+              formControlName="size2"
+              placeholder="10, 12, 14, 16"
+              class="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            >
+            <p class="text-gray-500 text-sm mt-1">Separar con comas</p>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Description -->
+      <div class="mb-8">
+        <h2 class="text-xl font-semibold text-gray-900 mb-4">📝 Descripción</h2>
+        <textarea
+          formControlName="description"
+          rows="4"
+          placeholder="Descripción detallada del producto..."
+          class="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+        ></textarea>
+      </div>
+
+      <!-- Actions -->
+      <div class="flex justify-end space-x-4 pt-6 border-t border-gray-200">
+        <button
+          type="button"
+          (click)="router.navigate(['/products'])"
+          class="px-6 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors"
+        >
+          ❌ Cancelar
+        </button>
+        <button
+          type="submit"
+          [disabled]="submitting || productForm.invalid"
+          class="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+        >
+          <span *ngIf="submitting">⏳ Guardando...</span>
+          <span *ngIf="!submitting">
+            {{ isEditMode ? '💾 Actualizar' : '➕ Crear' }} Producto
+          </span>
+        </button>
+      </div>
+
+    </form>
+  </div>
+</div>

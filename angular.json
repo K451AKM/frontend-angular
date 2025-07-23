@@ -90,6 +90,7 @@
               }
             ],
             "styles": [
+              "src/assets/css/variables.css",
               "src/styles.css"
             ],
             "scripts": []
@@ -97,5 +98,8 @@
         }
       }
     }
+  },
+  "cli": {
+    "analytics": false
   }
 }
