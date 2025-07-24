@@ -204,12 +204,8 @@ export class DashboardComponent implements OnInit {
     this.router.navigate(['/products/new']);
   }
 
-  goToNewUser() {
-    this.router.navigate(['/register']);
-  }
-
   goToUserManagement() {
-    this.router.navigate(['/users']);
+    this.router.navigate(['/admin/users']);
   }
 
   // 🔥 NUEVO MÉTODO PARA GESTIÓN DE PEDIDOS ADMIN

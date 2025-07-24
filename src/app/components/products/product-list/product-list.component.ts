@@ -7,11 +7,18 @@ import {
   type Product,
 } from '../../../services/product.service';
 import { LoadingComponent } from '../../shared/loading/loading.component';
+import { ProductDetailModalComponent } from '../product-detail-modal/product-detail-modal.component';
 
 @Component({
   selector: 'app-product-list',
   standalone: true,
-  imports: [CommonModule, RouterModule, FormsModule, LoadingComponent],
+  imports: [
+    CommonModule,
+    RouterModule,
+    FormsModule,
+    LoadingComponent,
+    ProductDetailModalComponent,
+  ],
   templateUrl: './product-list.component.html',
   styleUrls: ['./product-list.component.css'],
 })
@@ -22,6 +29,10 @@ export class ProductListComponent implements OnInit {
   loading = false;
   currentPage = 1;
   totalPages = 1;
+
+  // Modal properties
+  selectedProduct: Product | null = null;
+  isModalVisible = false;
 
   filters = {
     search: '',
@@ -85,6 +96,23 @@ export class ProductListComponent implements OnInit {
       this.currentPage = page;
       this.loadProducts();
     }
+  }
+
+  // Modal methods
+  viewProduct(product: Product) {
+    this.selectedProduct = product;
+    this.isModalVisible = true;
+  }
+
+  closeModal() {
+    this.isModalVisible = false;
+    this.selectedProduct = null;
+  }
+
+  editProductFromModal(product: Product) {
+    this.closeModal();
+    // Navigate to edit page
+    window.location.href = `/products/edit/${product.id}`;
   }
 
   deleteProduct(product: Product) {

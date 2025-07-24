@@ -14,7 +14,7 @@ import {
 } from '../../../services/product.service';
 import { FavoriteService } from '../../../services/favorite.service';
 import { CartService } from '../../../services/cart.service';
-
+import { ProductSuggestionsComponent } from '../product-suggestions/product-suggestions.component';
 interface ColorOption {
   name: string;
   hex: string;
@@ -24,7 +24,7 @@ interface ColorOption {
 @Component({
   selector: 'app-product-detail',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, ProductSuggestionsComponent],
   templateUrl: './product-detail.component.html',
   styleUrls: ['./product-detail.component.css'],
 })

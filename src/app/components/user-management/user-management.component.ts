@@ -11,6 +11,8 @@ import {
 import { AuthService, type User } from '../../services/auth.service';
 import { UserService } from '../../services/user.service';
 import { LoadingComponent } from '../shared/loading/loading.component';
+import { HeaderComponent } from '../shared/header/header.component';
+import { UserDetailModalComponent } from '../users/user-detail-modal/user-detail-modal.component';
 
 @Component({
   selector: 'app-user-management',
@@ -21,6 +23,8 @@ import { LoadingComponent } from '../shared/loading/loading.component';
     FormsModule,
     ReactiveFormsModule,
     LoadingComponent,
+    HeaderComponent,
+    UserDetailModalComponent,
   ],
   templateUrl: './user-management.component.html',
   styleUrls: ['./user-management.component.css'],
@@ -42,6 +46,10 @@ export class UserManagementComponent implements OnInit {
   currentPage = 1;
   totalPages = 1;
   totalUsers = 0;
+
+  // Modal properties for user details
+  selectedUser: User | null = null;
+  isDetailModalVisible = false;
 
   userForm: FormGroup = this.fb.group({
     name: ['', [Validators.required, Validators.minLength(2)]],
@@ -102,6 +110,22 @@ export class UserManagementComponent implements OnInit {
 
   onRoleFilterChange(): void {
     this.applyFilters();
+  }
+
+  // Modal methods for user details
+  viewUser(user: User) {
+    this.selectedUser = user;
+    this.isDetailModalVisible = true;
+  }
+
+  closeDetailModal() {
+    this.isDetailModalVisible = false;
+    this.selectedUser = null;
+  }
+
+  editUserFromModal(user: User) {
+    this.closeDetailModal();
+    this.openEditModal(user);
   }
 
   openCreateModal(): void {

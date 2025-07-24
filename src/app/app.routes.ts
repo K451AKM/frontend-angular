@@ -103,6 +103,11 @@ export const routes: Routes = [
     component: UserManagementComponent,
     canActivate: [authGuard, adminGuard],
   },
+  {
+    path: 'admin/users',
+    component: UserManagementComponent,
+    canActivate: [authGuard, adminGuard],
+  },
 
   // Ruta wildcard - redirige al home si no encuentra la ruta
   { path: '**', redirectTo: '/' },

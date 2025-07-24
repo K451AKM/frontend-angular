@@ -555,3 +555,39 @@
     justify-content: center;
   }
 }
+/* View button styles */
+.view-btn {
+  background: var(--green);
+  color: var(--white);
+  flex: 1;
+}
+
+.view-btn:hover {
+  background: #059669;
+  transform: translateY(-1px);
+}
+
+/* Overlay action for view */
+.overlay-action.view {
+  background: rgba(16, 185, 129, 0.9);
+}
+
+.overlay-action.view:hover {
+  background: var(--green);
+  transform: scale(1.1);
+}
+
+/* Update product actions to accommodate 3 buttons */
+.product-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 0.5rem;
+}
+
+/* Responsive adjustments for 3 buttons */
+@media (max-width: 768px) {
+  .product-actions {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+}

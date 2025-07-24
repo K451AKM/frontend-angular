@@ -316,6 +316,13 @@
   </div>
 </main>
 
+<!-- 🔥 NUEVO: Sección de Productos Sugeridos -->
+<app-product-suggestions 
+  *ngIf="!loading && product"
+  [category]="product?.category" 
+  [currentProductId]="product?.id">
+</app-product-suggestions>
+
 <!-- WhatsApp Float Button -->
 <a href="https://wa.me/9511247142" class="whatsapp-float" target="_blank" rel="noopener">
   <svg width="32" height="32" fill="currentColor" viewBox="0 0 24 24">
