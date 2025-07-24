@@ -208,8 +208,12 @@ export class DashboardComponent implements OnInit {
     this.router.navigate(['/register']);
   }
 
-  // Navigation methods
   goToUserManagement() {
     this.router.navigate(['/users']);
+  }
+
+  // 🔥 NUEVO MÉTODO PARA GESTIÓN DE PEDIDOS ADMIN
+  goToOrdersAdmin() {
+    this.router.navigate(['/admin/orders']);
   }
 }

@@ -92,6 +92,17 @@
           </svg>
           Nuevo Producto
         </button>
+        <!-- 🔥 NUEVO BOTÓN PARA GESTIÓN DE PEDIDOS ADMIN -->
+        <button 
+          *ngIf="authService.isAdmin() || authService.isEmpleado()" 
+          class="action-btn orders-admin" 
+          (click)="goToOrdersAdmin()"
+        >
+          <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z" clip-rule="evenodd"></path>
+          </svg>
+          Gestionar Pedidos
+        </button>
         <button 
           *ngIf="authService.isAdmin()" 
           class="action-btn success" 
@@ -237,6 +248,23 @@
             <div class="action-content">
               <h4>Nuevo Producto</h4>
               <p>Agregar al inventario</p>
+            </div>
+          </button>
+
+          <!-- 🔥 NUEVA ACCIÓN RÁPIDA PARA GESTIÓN DE PEDIDOS -->
+          <button 
+            *ngIf="authService.isAdmin() || authService.isEmpleado()" 
+            class="action-item" 
+            (click)="goToOrdersAdmin()"
+          >
+            <div class="action-icon orders-admin-icon">
+              <svg width="24" height="24" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z" clip-rule="evenodd"></path>
+              </svg>
+            </div>
+            <div class="action-content">
+              <h4>Gestionar Pedidos</h4>
+              <p>Actualizar estados de pedidos</p>
             </div>
           </button>
 

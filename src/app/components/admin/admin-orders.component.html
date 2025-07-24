@@ -1,0 +1,603 @@
+<app-header></app-header>
+
+<div class="min-h-screen bg-gray-50 py-8">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- Header -->
+    <div class="mb-8">
+      <h1 class="text-3xl font-bold text-gray-900">Gestión de Pedidos</h1>
+      <p class="mt-2 text-gray-600">Administra todos los pedidos del sistema</p>
+    </div>
+
+    <!-- Estadísticas -->
+    <div class="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-7 gap-4 mb-8">
+      <div class="bg-white rounded-lg shadow p-6">
+        <div class="flex items-center">
+          <div class="flex-shrink-0">
+            <div class="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center">
+              <span class="text-white text-sm font-bold">{{ stats.total }}</span>
+            </div>
+          </div>
+          <div class="ml-4">
+            <p class="text-sm font-medium text-gray-500">Total</p>
+            <p class="text-2xl font-bold text-gray-900">{{ stats.total }}</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-lg shadow p-6">
+        <div class="flex items-center">
+          <div class="flex-shrink-0">
+            <div class="w-8 h-8 bg-yellow-500 rounded-full flex items-center justify-center">
+              <span class="text-white text-sm font-bold">{{ stats.pending }}</span>
+            </div>
+          </div>
+          <div class="ml-4">
+            <p class="text-sm font-medium text-gray-500">Pendientes</p>
+            <p class="text-2xl font-bold text-gray-900">{{ stats.pending }}</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-lg shadow p-6">
+        <div class="flex items-center">
+          <div class="flex-shrink-0">
+            <div class="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center">
+              <span class="text-white text-sm font-bold">{{ stats.confirmed }}</span>
+            </div>
+          </div>
+          <div class="ml-4">
+            <p class="text-sm font-medium text-gray-500">Confirmados</p>
+            <p class="text-2xl font-bold text-gray-900">{{ stats.confirmed }}</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-lg shadow p-6">
+        <div class="flex items-center">
+          <div class="flex-shrink-0">
+            <div class="w-8 h-8 bg-purple-500 rounded-full flex items-center justify-center">
+              <span class="text-white text-sm font-bold">{{ stats.processing }}</span>
+            </div>
+          </div>
+          <div class="ml-4">
+            <p class="text-sm font-medium text-gray-500">Procesando</p>
+            <p class="text-2xl font-bold text-gray-900">{{ stats.processing }}</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-lg shadow p-6">
+        <div class="flex items-center">
+          <div class="flex-shrink-0">
+            <div class="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center">
+              <span class="text-white text-sm font-bold">{{ stats.shipped }}</span>
+            </div>
+          </div>
+          <div class="ml-4">
+            <p class="text-sm font-medium text-gray-500">Enviados</p>
+            <p class="text-2xl font-bold text-gray-900">{{ stats.shipped }}</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-lg shadow p-6">
+        <div class="flex items-center">
+          <div class="flex-shrink-0">
+            <div class="w-8 h-8 bg-green-600 rounded-full flex items-center justify-center">
+              <span class="text-white text-sm font-bold">{{ stats.delivered }}</span>
+            </div>
+          </div>
+          <div class="ml-4">
+            <p class="text-sm font-medium text-gray-500">Entregados</p>
+            <p class="text-2xl font-bold text-gray-900">{{ stats.delivered }}</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-lg shadow p-6">
+        <div class="flex items-center">
+          <div class="flex-shrink-0">
+            <div class="w-8 h-8 bg-red-500 rounded-full flex items-center justify-center">
+              <span class="text-white text-sm font-bold">{{ stats.cancelled }}</span>
+            </div>
+          </div>
+          <div class="ml-4">
+            <p class="text-sm font-medium text-gray-500">Cancelados</p>
+            <p class="text-2xl font-bold text-gray-900">{{ stats.cancelled }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Filtros y búsqueda -->
+    <div class="bg-white rounded-lg shadow mb-8">
+      <div class="p-6">
+        <div class="flex flex-col sm:flex-row gap-4">
+          <!-- Filtros por estado -->
+          <div class="flex flex-wrap gap-2">
+            <button
+              (click)="filterOrders('all')"
+              [class]="currentFilter === 'all' ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-700 hover:bg-gray-300'"
+              class="px-4 py-2 rounded-lg text-sm font-medium transition-colors"
+            >
+              Todos
+            </button>
+            <button
+              (click)="filterOrders('pending')"
+              [class]="currentFilter === 'pending' ? 'bg-yellow-500 text-white' : 'bg-gray-200 text-gray-700 hover:bg-gray-300'"
+              class="px-4 py-2 rounded-lg text-sm font-medium transition-colors"
+            >
+              Pendientes
+            </button>
+            <button
+              (click)="filterOrders('confirmed')"
+              [class]="currentFilter === 'confirmed' ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-700 hover:bg-gray-300'"
+              class="px-4 py-2 rounded-lg text-sm font-medium transition-colors"
+            >
+              Confirmados
+            </button>
+            <button
+              (click)="filterOrders('processing')"
+              [class]="currentFilter === 'processing' ? 'bg-purple-500 text-white' : 'bg-gray-200 text-gray-700 hover:bg-gray-300'"
+              class="px-4 py-2 rounded-lg text-sm font-medium transition-colors"
+            >
+              Procesando
+            </button>
+            <button
+              (click)="filterOrders('shipped')"
+              [class]="currentFilter === 'shipped' ? 'bg-green-500 text-white' : 'bg-gray-200 text-gray-700 hover:bg-gray-300'"
+              class="px-4 py-2 rounded-lg text-sm font-medium transition-colors"
+            >
+              Enviados
+            </button>
+            <button
+              (click)="filterOrders('delivered')"
+              [class]="currentFilter === 'delivered' ? 'bg-green-600 text-white' : 'bg-gray-200 text-gray-700 hover:bg-gray-300'"
+              class="px-4 py-2 rounded-lg text-sm font-medium transition-colors"
+            >
+              Entregados
+            </button>
+          </div>
+
+          <!-- Búsqueda -->
+          <div class="flex-1 max-w-md">
+            <input
+              type="text"
+              [(ngModel)]="searchTerm"
+              (input)="onSearchChange()"
+              placeholder="Buscar por número de pedido, nombre o email..."
+              class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            />
+          </div>
+
+          <!-- Botón exportar -->
+          <button
+            (click)="exportOrders()"
+            class="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors"
+          >
+            Exportar
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Loading -->
+    <div *ngIf="loading" class="bg-white rounded-lg shadow p-8 text-center">
+      <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500 mx-auto"></div>
+      <p class="mt-4 text-gray-600">Cargando pedidos...</p>
+    </div>
+
+    <!-- Lista de pedidos -->
+    <div *ngIf="!loading" class="bg-white rounded-lg shadow overflow-hidden">
+      <div *ngIf="filteredOrders.length === 0" class="p-8 text-center">
+        <p class="text-gray-500">No se encontraron pedidos</p>
+      </div>
+
+      <div *ngIf="filteredOrders.length > 0" class="overflow-x-auto">
+        <table class="min-w-full divide-y divide-gray-200">
+          <thead class="bg-gray-50">
+            <tr>
+              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                Pedido
+              </th>
+              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                Cliente
+              </th>
+              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                Productos
+              </th>
+              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                Total
+              </th>
+              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                Estado
+              </th>
+              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                Fecha
+              </th>
+              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                Acciones
+              </th>
+            </tr>
+          </thead>
+          <tbody class="bg-white divide-y divide-gray-200">
+            <tr *ngFor="let order of filteredOrders" class="hover:bg-gray-50">
+              <!-- Número de pedido -->
+              <td class="px-6 py-4 whitespace-nowrap">
+                <div class="text-sm font-medium text-gray-900">
+                  #{{ order.order_number }}
+                </div>
+                <div class="text-sm text-gray-500">
+                  {{ order.payment_method | uppercase }}
+                </div>
+              </td>
+
+              <!-- Cliente -->
+              <td class="px-6 py-4 whitespace-nowrap">
+                <div class="text-sm font-medium text-gray-900">
+                  {{ order.shipping_name }}
+                </div>
+                <div class="text-sm text-gray-500">
+                  {{ order.shipping_email }}
+                </div>
+              </td>
+
+              <!-- Productos -->
+              <td class="px-6 py-4">
+                <div class="flex items-center space-x-2">
+                  <div *ngFor="let item of getOrderItemsSlice(order.items)" class="flex-shrink-0">
+                    <img
+                      [src]="getItemImage(item)"
+                      [alt]="item.product_name"
+                      class="h-10 w-10 rounded-lg object-cover"
+                    />
+                  </div>
+                  <div *ngIf="hasMoreItems(order.items)" class="text-sm text-gray-500">
+                    +{{ getMoreItemsCount(order.items) }} más
+                  </div>
+                </div>
+              </td>
+
+              <!-- Total -->
+              <td class="px-6 py-4 whitespace-nowrap">
+                <div class="text-sm font-medium text-gray-900">
+                  ${{ getTotalOrderValue(order).toFixed(2) }}
+                </div>
+                <div class="text-sm text-gray-500">
+                  {{ order.items?.length || 0 }} items
+                </div>
+              </td>
+
+              <!-- Estado -->
+              <td class="px-6 py-4 whitespace-nowrap">
+                <span
+                  class="inline-flex px-2 py-1 text-xs font-semibold rounded-full text-white"
+                  [style.background-color]="getStatusColor(order.status)"
+                >
+                  {{ getStatusLabel(order.status) }}
+                </span>
+              </td>
+
+              <!-- Fecha -->
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                {{ formatDate(order.created_at) }}
+              </td>
+
+              <!-- Acciones -->
+              <td class="px-6 py-4 whitespace-nowrap">
+                <div class="flex items-center space-x-2">
+                  <!-- 🔥 Botón Ver Detalles -->
+                  <button
+                    (click)="viewOrderDetails(order)"
+                    class="text-blue-600 hover:text-blue-900 transition-colors"
+                    title="Ver detalles"
+                  >
+                    <svg width="16" height="16" fill="currentColor" viewBox="0 0 20 20">
+                      <path d="M10 12a2 2 0 100-4 2 2 0 000 4z"></path>
+                      <path fill-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd"></path>
+                    </svg>
+                  </button>
+
+                  <!-- 🔥 Botón Editar -->
+                  <button
+                    (click)="editOrder(order)"
+                    [disabled]="!canEditOrder(order)"
+                    class="text-green-600 hover:text-green-900 transition-colors disabled:text-gray-400 disabled:cursor-not-allowed"
+                    title="Editar pedido"
+                  >
+                    <svg width="16" height="16" fill="currentColor" viewBox="0 0 20 20">
+                      <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z"></path>
+                    </svg>
+                  </button>
+
+                  <!-- Selector de estado rápido -->
+                  <select
+                    [value]="order.status"
+                    (change)="onStatusChange(order.id, $event)"
+                    [disabled]="updatingOrder === order.id"
+                    class="text-sm border border-gray-300 rounded-md px-2 py-1 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  >
+                    <option *ngFor="let status of availableStatuses" [value]="status.value">
+                      {{ status.label }}
+                    </option>
+                  </select>
+                </div>
+                <div *ngIf="updatingOrder === order.id" class="text-xs text-blue-600 mt-1">
+                  Actualizando...
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Paginación -->
+      <div *ngIf="totalPages > 1" class="bg-white px-4 py-3 border-t border-gray-200 sm:px-6">
+        <div class="flex items-center justify-between">
+          <div class="flex-1 flex justify-between sm:hidden">
+            <button
+              (click)="changePage(currentPage - 1)"
+              [disabled]="currentPage <= 1"
+              class="relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              Anterior
+            </button>
+            <button
+              (click)="changePage(currentPage + 1)"
+              [disabled]="currentPage >= totalPages"
+              class="ml-3 relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              Siguiente
+            </button>
+          </div>
+          <div class="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
+            <div>
+              <p class="text-sm text-gray-700">
+                Página <span class="font-medium">{{ currentPage }}</span> de
+                <span class="font-medium">{{ totalPages }}</span>
+              </p>
+            </div>
+            <div>
+              <nav class="relative z-0 inline-flex rounded-md shadow-sm -space-x-px">
+                <button
+                  (click)="changePage(currentPage - 1)"
+                  [disabled]="currentPage <= 1"
+                  class="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  ‹
+                </button>
+                <button
+                  (click)="changePage(currentPage + 1)"
+                  [disabled]="currentPage >= totalPages"
+                  class="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  ›
+                </button>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 🔥 CARD FLOTANTE PARA VER DETALLES DEL PEDIDO -->
+<div *ngIf="showViewModal && selectedOrder" class="order-details-overlay" (click)="closeViewModal()">
+  <div class="order-details-card" (click)="$event.stopPropagation()">
+    <!-- Header -->
+    <div class="card-header">
+      <h3 class="card-title">
+        Detalles del Pedido #{{ selectedOrder.order_number }}
+      </h3>
+      <button (click)="closeViewModal()" class="close-btn">
+        <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
+          <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Content -->
+    <div class="card-content">
+      <div class="details-grid">
+        <!-- Información general -->
+        <div class="info-section">
+          <h4 class="section-title">Información General</h4>
+          <div class="info-list">
+            <div class="info-item">
+              <span class="info-label">Número de pedido:</span>
+              <span class="info-value">#{{ selectedOrder.order_number }}</span>
+            </div>
+            <div class="info-item">
+              <span class="info-label">Estado:</span>
+              <span class="status-badge" [style.background-color]="getStatusColor(selectedOrder.status)">
+                {{ getStatusLabel(selectedOrder.status) }}
+              </span>
+            </div>
+            <div class="info-item">
+              <span class="info-label">Estado de pago:</span>
+              <span class="status-badge" [style.background-color]="getPaymentStatusColor(selectedOrder.payment_status)">
+                {{ getPaymentStatusLabel(selectedOrder.payment_status) }}
+              </span>
+            </div>
+            <div class="info-item">
+              <span class="info-label">Método de pago:</span>
+              <span class="info-value">{{ selectedOrder.payment_method | uppercase }}</span>
+            </div>
+            <div class="info-item">
+              <span class="info-label">Fecha de pedido:</span>
+              <span class="info-value">{{ formatDate(selectedOrder.created_at) }}</span>
+            </div>
+            <div class="info-item">
+              <span class="info-label">Total:</span>
+              <span class="info-value total-amount">${{ formatNumber(selectedOrder.total) }}</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Información del cliente -->
+        <div class="info-section">
+          <h4 class="section-title">Información del Cliente</h4>
+          <div class="info-list">
+            <div class="info-item">
+              <span class="info-label">Nombre:</span>
+              <span class="info-value">{{ selectedOrder.shipping_name }}</span>
+            </div>
+            <div class="info-item">
+              <span class="info-label">Email:</span>
+              <span class="info-value">{{ selectedOrder.shipping_email }}</span>
+            </div>
+            <div class="info-item">
+              <span class="info-label">Teléfono:</span>
+              <span class="info-value">{{ selectedOrder.shipping_phone }}</span>
+            </div>
+            <div class="info-item full-width">
+              <span class="info-label">Dirección:</span>
+              <span class="info-value">{{ getShippingAddress(selectedOrder) }}</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Productos -->
+        <div class="info-section full-width">
+          <h4 class="section-title">Productos ({{ selectedOrder.items?.length || 0 }})</h4>
+          <div class="products-list">
+            <div *ngFor="let item of selectedOrder.items" class="product-item">
+              <img [src]="getItemImage(item)" [alt]="item.product_name" class="product-image">
+              <div class="product-info">
+                <p class="product-name">{{ item.product_name }}</p>
+                <p class="product-code">Código: {{ item.product_code }}</p>
+                <div class="product-options">
+                  <span *ngIf="item.size" class="option">Talla: {{ item.size }}</span>
+                  <span *ngIf="item.color" class="option">Color: {{ item.color }}</span>
+                </div>
+              </div>
+              <div class="product-pricing">
+                <p class="product-quantity">{{ item.quantity }}x</p>
+                <p class="product-price">${{ formatNumber(item.unit_price) }}</p>
+                <p class="product-total">${{ formatNumber(item.total_price) }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Notas -->
+        <div *ngIf="selectedOrder.notes || selectedOrder.admin_notes" class="info-section full-width">
+          <h4 class="section-title">Notas</h4>
+          <div class="notes-content">
+            <div *ngIf="selectedOrder.notes" class="note-item">
+              <span class="note-label">Notas del cliente:</span>
+              <p class="note-text">{{ selectedOrder.notes }}</p>
+            </div>
+            <div *ngIf="selectedOrder.admin_notes" class="note-item">
+              <span class="note-label">Notas del administrador:</span>
+              <p class="note-text">{{ selectedOrder.admin_notes }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="card-footer">
+      <button (click)="closeViewModal()" class="btn-secondary">
+        Cerrar
+      </button>
+      <button 
+        (click)="editOrder(selectedOrder); closeViewModal()" 
+        [disabled]="!canEditOrder(selectedOrder)"
+        class="btn-primary"
+      >
+        Editar Pedido
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- 🔥 CARD FLOTANTE PARA EDITAR PEDIDO -->
+<div *ngIf="showEditModal && editingOrder" class="order-details-overlay" (click)="closeEditModal()">
+  <div class="order-edit-card" (click)="$event.stopPropagation()">
+    <!-- Header -->
+    <div class="card-header">
+      <h3 class="card-title">
+        Editar Pedido #{{ editingOrder.order_number }}
+      </h3>
+      <button (click)="closeEditModal()" class="close-btn">
+        <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
+          <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Content -->
+    <div class="card-content">
+      <form class="edit-form">
+        <!-- Estado del pedido -->
+        <div class="form-group">
+          <label class="form-label">Estado del Pedido</label>
+          <select [(ngModel)]="editingOrder.status" name="status" class="form-select">
+            <option *ngFor="let status of availableStatuses" [value]="status.value">
+              {{ status.label }}
+            </option>
+          </select>
+        </div>
+
+        <!-- Estado del pago -->
+        <div class="form-group">
+          <label class="form-label">Estado del Pago</label>
+          <select [(ngModel)]="editingOrder.payment_status" name="payment_status" class="form-select">
+            <option *ngFor="let status of availablePaymentStatuses" [value]="status.value">
+              {{ status.label }}
+            </option>
+          </select>
+        </div>
+
+        <!-- Notas del administrador -->
+        <div class="form-group">
+          <label class="form-label">Notas del Administrador</label>
+          <textarea 
+            [(ngModel)]="editingOrder.admin_notes" 
+            name="admin_notes" 
+            rows="4" 
+            class="form-textarea"
+            placeholder="Agregar notas internas sobre el pedido..."
+          ></textarea>
+        </div>
+
+        <!-- Información del cliente (solo lectura) -->
+        <div class="customer-info">
+          <h4 class="section-title">Información del Cliente</h4>
+          <div class="customer-grid">
+            <div class="customer-item">
+              <span class="customer-label">Nombre:</span>
+              <span class="customer-value">{{ editingOrder.shipping_name }}</span>
+            </div>
+            <div class="customer-item">
+              <span class="customer-label">Email:</span>
+              <span class="customer-value">{{ editingOrder.shipping_email }}</span>
+            </div>
+            <div class="customer-item">
+              <span class="customer-label">Teléfono:</span>
+              <span class="customer-value">{{ editingOrder.shipping_phone }}</span>
+            </div>
+            <div class="customer-item">
+              <span class="customer-label">Total:</span>
+              <span class="customer-value total-amount">${{ formatNumber(editingOrder.total) }}</span>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <!-- Footer -->
+    <div class="card-footer">
+      <button (click)="closeEditModal()" [disabled]="savingChanges" class="btn-secondary">
+        Cancelar
+      </button>
+      <button (click)="saveOrderChanges()" [disabled]="savingChanges" class="btn-primary">
+        <span *ngIf="savingChanges" class="spinner"></span>
+        {{ savingChanges ? 'Guardando...' : 'Guardar Cambios' }}
+      </button>
+    </div>
+  </div>
+</div>

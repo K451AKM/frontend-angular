@@ -1,4 +1,3 @@
-
 .dashboard-container {
   min-height: 100vh;
   background: var(--cream-light);
@@ -239,6 +238,18 @@
 
 .action-btn.success:hover {
   background: #6d8575;
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-hover);
+}
+
+/* 🔥 NUEVO ESTILO PARA EL BOTÓN DE GESTIÓN DE PEDIDOS */
+.action-btn.orders-admin {
+  background: #ec4899;
+  color: var(--white);
+}
+
+.action-btn.orders-admin:hover {
+  background: #db2777;
   transform: translateY(-2px);
   box-shadow: var(--shadow-hover);
 }
@@ -502,6 +513,11 @@
 
 .reports-icon {
   background: var(--warning);
+}
+
+/* 🔥 NUEVO ICONO PARA GESTIÓN DE PEDIDOS ADMIN */
+.orders-admin-icon {
+  background: #ec4899;
 }
 
 .action-content h4 {

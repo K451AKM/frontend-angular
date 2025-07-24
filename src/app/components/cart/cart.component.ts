@@ -169,7 +169,11 @@ import { HeaderComponent } from '../shared/header/header.component';
               </div>
 
               <div class="summary-actions">
-                <button class="checkout-btn" [disabled]="updating">
+                <button
+                  class="checkout-btn"
+                  [disabled]="updating"
+                  (click)="goToCheckout()"
+                >
                   <svg
                     width="20"
                     height="20"
@@ -381,5 +385,14 @@ export class CartComponent implements OnInit {
 
   onImageError(event: any): void {
     event.target.src = '/placeholder.svg?height=100&width=100&text=Producto';
+  }
+
+  // 🔥 MÉTODO PARA IR AL CHECKOUT
+  goToCheckout(): void {
+    if (this.cartItems.length === 0) {
+      alert('Tu carrito está vacío');
+      return;
+    }
+    this.router.navigate(['/checkout']);
   }
 }

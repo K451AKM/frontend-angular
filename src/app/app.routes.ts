@@ -35,6 +35,32 @@ export const routes: Routes = [
       import('./components/cart/cart.component').then((m) => m.CartComponent),
     canActivate: [authGuard],
   },
+  // 🔥 NUEVAS RUTAS: Checkout y Historial de Pedidos
+  {
+    path: 'checkout',
+    loadComponent: () =>
+      import('./components/checkout/checkout.component').then(
+        (m) => m.CheckoutComponent
+      ),
+    canActivate: [authGuard],
+  },
+  {
+    path: 'orders',
+    loadComponent: () =>
+      import('./components/orders/order-history.component').then(
+        (m) => m.OrderHistoryComponent
+      ),
+    canActivate: [authGuard],
+  },
+  // 🔥 NUEVA RUTA: Gestión de Pedidos Admin
+  {
+    path: 'admin/orders',
+    loadComponent: () =>
+      import('./components/admin/admin-orders.component').then(
+        (m) => m.AdminOrdersComponent
+      ),
+    canActivate: [authGuard, adminGuard],
+  },
 
   // 🔥 Ruta de detalle de producto (sin autenticación requerida para ver)
   { path: 'producto/:id', component: ProductDetailComponent },
