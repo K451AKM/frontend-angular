@@ -42,7 +42,8 @@ export interface AddToCartRequest {
 export class CartService {
   private http = inject(HttpClient);
   private authService = inject(AuthService);
-  private apiUrl = 'http://127.0.0.1:8000/api';
+  private apiUrl =
+    'https://larabel-backend-navys-production.up.railway.app/api';
 
   // Subject para mantener el conteo del carrito actualizado
   private cartCountSubject = new BehaviorSubject<number>(0);

@@ -106,7 +106,8 @@ export class OrderService {
   private http = inject(HttpClient);
   private authService = inject(AuthService);
   private cartService = inject(CartService);
-  private apiUrl = 'http://127.0.0.1:8000/api';
+  private apiUrl =
+    'https://larabel-backend-navys-production.up.railway.app/api';
 
   /**
    * Obtener todos los pedidos del usuario

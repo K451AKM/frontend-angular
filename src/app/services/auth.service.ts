@@ -43,8 +43,9 @@ export class AuthService {
   private router = inject(Router);
   private platformId = inject(PLATFORM_ID);
 
-  private apiUrl = 'http://127.0.0.1:8000/api';
-  private baseUrl = 'http://127.0.0.1:8000';
+  private apiUrl =
+    'https://larabel-backend-navys-production.up.railway.app/api';
+  private baseUrl = 'https://larabel-backend-navys-production.up.railway.app';
   private currentUserSubject = new BehaviorSubject<User | null>(null);
   public currentUser$ = this.currentUserSubject.asObservable();
 

@@ -28,8 +28,9 @@ export interface Product {
 export class ProductService {
   private http = inject(HttpClient);
   private authService = inject(AuthService);
-  private apiUrl = 'http://127.0.0.1:8000/api';
-  private baseUrl = 'http://127.0.0.1:8000';
+  private apiUrl =
+    'https://larabel-backend-navys-production.up.railway.app/api';
+  private baseUrl = 'https://larabel-backend-navys-production.up.railway.app';
 
   getAllProducts(filters?: any): Observable<any> {
     let url = `${this.apiUrl}/products`;

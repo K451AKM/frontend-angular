@@ -26,7 +26,8 @@ export interface FavoriteResponse {
 export class FavoriteService {
   private http: HttpClient = inject(HttpClient);
   private authService: AuthService = inject(AuthService);
-  private apiUrl = 'http://127.0.0.1:8000/api';
+  private apiUrl =
+    'https://larabel-backend-navys-production.up.railway.app/api';
 
   /**
    * Obtener todos los favoritos del usuario
