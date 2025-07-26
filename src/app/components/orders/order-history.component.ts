@@ -346,7 +346,7 @@ export class OrderHistoryComponent implements OnInit {
 
     // Si tiene imagen pero no es URL completa, construimos la URL del backend
     if (item.product_image) {
-      return `http://127.0.0.1:8000/${item.product_image}`;
+      return `https://larabel-backend-navys-production.up.railway.app/${item.product_image}`;
     }
 
     // Si no tiene imagen, devolvemos placeholder

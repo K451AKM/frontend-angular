@@ -390,7 +390,7 @@ export class AdminOrdersComponent implements OnInit {
     }
 
     if (item.product_image) {
-      return `http://127.0.0.1:8000/${item.product_image}`;
+      return `https://larabel-backend-navys-production.up.railway.app/${item.product_image}`;
     }
 
     return '/placeholder.svg?height=50&width=50';

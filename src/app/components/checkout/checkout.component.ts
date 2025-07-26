@@ -781,7 +781,7 @@ export class CheckoutComponent implements OnInit {
       if (imageKeys.length > 0) {
         const firstImage = product.images[imageKeys[0]];
         if (firstImage && !firstImage.startsWith('http')) {
-          return `http://127.0.0.1:8000/${firstImage}`;
+          return `https://larabel-backend-navys-production.up.railway.app/${firstImage}`;
         }
         return firstImage || '/placeholder.svg?height=60&width=60';
       }

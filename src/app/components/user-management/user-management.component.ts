@@ -325,7 +325,7 @@ export class UserManagementComponent implements OnInit {
   getFullImageUrl(photoPath: string): string {
     if (!photoPath) return '';
     if (photoPath.startsWith('http')) return photoPath;
-    return `http://127.0.0.1:8000/${photoPath}`;
+    return `https://larabel-backend-navys-production.up.railway.app/${photoPath}`;
   }
 
   getInitials(name: string, lastName = ''): string {
